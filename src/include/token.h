@@ -1,18 +1,12 @@
-#ifndef _SCANNER_H__
-#define _SCANNER_H__
+#ifndef _TOKEN_H__
+#define _TOKEN_H__
 
-#include <stdio.h>
+#include <stdlib.h>
+#include "string.h"
 
-typedef struct lexer {
-    char* source_buffer;
-    char* current_line_start;
-} lexer_t;
-
-void init_lexer(lexer_t* lexer, char* src_file);
-char* load_source_file(FILE* fin);
+#define TOKEN_FMT(t) (int)(t)->attr.len, (t)->attr.start
 
 typedef enum {
-    // NOTE: might not be needed
     TOKEN_NO_TYPE,
     // tokens with value
     TOKEN_ID, TOKEN_INT, TOKEN_FLOAT, TOKEN_STRING,
@@ -30,17 +24,19 @@ typedef enum {
     // two character tokens
     TOKEN_LESS_EQ, TOKEN_GREATER_EQ,
     TOKEN_EQUAL, TOKEN_NOT_EQUAL,
+    // error
+    TOKEN_ERORR,
     // end of source code indicator
     TOKEN_EOF
 } token_type;
 
 typedef struct token {
     token_type type;
-    // stores ids, numbers and strings
-    char* attribute;
-    size_t attribute_len;
+    string_t attr;
 } token_t;
 
-int scan_token(lexer_t* lexer, token_t* token);
+void token_init(token_t* token);
+const char* type_to_string(token_type type);
+void print_token(token_t* token);
 
-#endif//_SCANNER_H__
+#endif//_TOKEN_H__

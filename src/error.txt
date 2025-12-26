@@ -1,0 +1,5 @@
+input = 1 = 10.a;
+
+0:4 Error: wrong numeric constant
+	| 1 = 10.a;
+	|     ^
