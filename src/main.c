@@ -18,6 +18,8 @@ int main(void) {
         print_token(t);
     }
 
+    puts("crazy commit work");
+
     free(source);
     return 0;
 }
